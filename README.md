@@ -5,10 +5,10 @@ A simple wrapper for the `mediatags` library.
 
 Note: [`mediatags`](https://github.com/smaniam/mtags) must be installed.
 
-usage
-----
-
     npm install mediatags
+
+Usage
+----
 
     var walk = require('walk'),
       mediatags = require('mediatags'),

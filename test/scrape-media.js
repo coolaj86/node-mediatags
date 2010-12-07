@@ -14,11 +14,12 @@
     }
     (sorted.files||[]).forEach(function (file) {
       //console.log(file);
-      mediatags(path + '/' + file.name).when(function (err, data) {
+      mediatags(path + '/' + file.name).when(function (err, data, stdout, stderr) {
         count += 1;
         if (err) {
           util.debug('error parsing output for ' + [path,file.name].join('/'));
           util.debug(err);
+          util.debug(stdout);
           return;
         }
         console.log('['+count+'] ' + path + '/' + file.name);

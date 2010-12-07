@@ -1,0 +1,6 @@
+*.o
+*.lo
+*.la
+obj_files
+.libs
+VisualStudioProject

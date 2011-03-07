@@ -1,30 +1,48 @@
 (function () {
+  "use strict";
+
   var walk = require('walk'),
+    fs = require('fs'),
     util = require('util'),
+    path = require('path'),
     mediatags = require('../lib/mediatags'),
     count = 0;
 
-  walk("/mnt/data").whenever(function (err, path, nodes, sorted) {
-    //console.log(path);
-    if (err) {
-      util.debug(err);
-    }
-    if (!sorted) {
-      return;
-    }
-    (sorted.files||[]).forEach(function (file) {
-      //console.log(file);
-      mediatags(path + '/' + file.name).when(function (err, data, stdout, stderr) {
-        count += 1;
+  function extractPath(pathname) {
+    var allTags = [];
+    console.log(pathname);
+
+    walker = walk(pathname);
+
+    walker.on('file', function (pathname, fileStat, next) {
+      var fullpath = path.join(pathname, fileStat.name);
+
+      if (!mediatags.test(fullpath)) {
+        return next();
+      }
+
+      mediatags.extract(fullpath, function (err, data, stdout, stderr) {
         if (err) {
-          util.debug('error parsing output for ' + [path,file.name].join('/'));
+          util.debug('Error: ' + fullpath);
           util.debug(err);
-          util.debug(stdout);
-          return;
         }
-        console.log('['+count+'] ' + path + '/' + file.name);
-        //console.log(data);
+        if (data) {
+          data.fullpath = fullpath;
+          allTags.push(data);
+        }
+        next();
+      });
+      count += 1;
+    });
+
+    walker.on('end', function () {
+      // console.log(allTags);
+      fs.writeFile('./all-media.json', JSON.stringify(allTags), function (err) {
+        console.log(err);
+        console.log("written");
       });
     });
-  });
+  }
+
+  extractPath(process.argv[2]);
 }());

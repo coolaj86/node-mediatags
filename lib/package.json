@@ -8,8 +8,8 @@
   "dependencies"  : {
     "futures": ">= 1.9.4",
     "walk": ">= 1.0.4",
-    "remedial": ">= 1.0.0"
+    "remedial": ">= 1.0.6"
   },
   "main"          : "./mediatags.js",
-  "version"       : "0.1.1"
+  "version"       : "0.1.2"
 }

@@ -1,0 +1,15 @@
+{
+  "name"          : "mediatags",
+  "description"   : "Tools extracting for media meta-data tags",
+  "url"           : "github.com/coolaj86/node-mediatags",
+  "keywords"      : ["util", "mp4", "m4a", "aac", "mp3", "id3", "jpeg", "exiv", "xmp", "pdf"],
+  "author"        : "AJ ONeal <coolaj86@gmail.com>",
+  "contributors"  : [],
+  "dependencies"  : {
+    "futures": ">= 1.9.4",
+    "walk": ">= 1.0.4",
+    "remedial": ">= 1.0.0"
+  },
+  "main"          : "./mediatags.js",
+  "version"       : "0.1.1"
+}
